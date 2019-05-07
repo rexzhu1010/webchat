@@ -1,0 +1,7 @@
+/migrations/
+/.idea/
+*/*.pyc
+*.pyc
+/.idea
+__pycache__
+migrations

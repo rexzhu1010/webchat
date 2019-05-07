@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <h1>USER</h1>
+</head>
+<body>
+{##}
+{#         for i in r4["ContactList"]:#}
+{#             print(i["NickName"])#}
+{##}
+{##}
+{#         for i in r4["MPSubscribeMsgList"]:#}
+{#             print(i["NickName"])#}
+{#         #return HttpResponse(json.dumps(ret))#}
+{#         #return redirect("/user.html")#}
+
+
+<ul>
+
+          {% for k,v in  user.User.items %}
+              <li>   {{ k }},{{ v }}</li>
+        {% endfor %}
+
+</ul>
+
+<ul>
+        {%  for i in user.ContactList %}
+            <li>{{ i.NickName }}</li>
+        {% endfor %}
+
+    <li><a href="/contact">查看更多联系人</a></li>
+
+</ul>
+
+
+        <h1>最近公众号</h1>
+<ul>
+        {% for i in  user.MPSubscribeMsgList %}
+            <li>{{ i.NickName }}</li>
+            <ul>
+
+                {% for msg in i.MPArticleList %}
+                    <li><a href="{{ msg.Url }}">{{ msg.Title }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endfor  %}
+
+
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+
+    <h1>所有联系人</h1>
+
+
+<ul>
+    <div style="float:right;width: 30%">
+    <p><input id="toUser" type="text" placeholder="收件人" value="@977dd344165fe23bd17e040a2905ab3d9c1ea0e5c6b9d560dab5f7f1daaaeb69"></p>
+    <p><textarea id="msg" placeholder="请输入消息"></textarea></p>
+    <p><input id="btn" type="button" value="发送"></p>
+    </div>
+
+    {%  for i in contact.MemberList %}
+
+
+        <li username="{{ i.UserName }}"> {{ i.NickName }} </li>
+    {% endfor  %}
+
+</ul>
+
+
+
+
+    <script src="/static/jquery-2.1.1.min.js"></script>
+    <script>
+
+        $(function () {
+
+            BindSendMsg();
+            Bindli();
+            getMsg();
+
+        })
+
+
+        function  BindSendMsg() {
+
+            $('#btn').click(function () {
+                $.ajax({
+                    url : '/sendmsg',
+                    type:'get',
+                    data:{"toUser":$('#toUser').val(),"msg":$("#msg").val()},
+                    dataType:"JSON",
+                    success:function(arg){
+                    }
+                })
+            })
+
+        }
+
+        function  Bindli() {
+            $('li').dblclick(function () {
+                 var v = $(this).attr('username')
+                $("#toUser").val(v);
+            })
+        }
+
+        function getMsg() {
+            $.ajax({
+                url:"/getmsg",
+                type :"GET",
+                dataType: "JSON",
+                success:function (arg) {
+                    console.log(arg);
+                    getMsg();
+                }
+            })
+        }
+
+    </script>
+
+</body>
+</html>
